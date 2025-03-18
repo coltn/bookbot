@@ -1,8 +1,20 @@
+import sys
+import os
 import stats
 
 
 def main():
-    filepath = "books/frankenstein.txt"
+    usage = "Usage: python3 main.py <path_to_book>"
+    if len(sys.argv) != 2:
+        print(usage)
+        sys.exit(1)
+
+    filepath = sys.argv[1]
+
+    if not os.path.exists(filepath):
+        print(usage)
+        sys.exit(1)
+
     chars, words = \
         stats.parse_file(filepath, stats.count_chars, stats.count_words)
     chars.sort(reverse=True, key=stats.sort_on_count)
